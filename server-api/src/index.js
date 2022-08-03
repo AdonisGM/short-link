@@ -16,6 +16,7 @@ app.use(bodyParser.json())
 // api for user
 app.use('/api/auth', require('./routers/user/authRouter'))
 app.use('/api/user', require('./routers/user/userRouter'))
+app.use('/api/link', require('./routers/user/linkRouter'))
 
 app.listen(3000, () => {
   mongoose.connect(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@${process.env.MONGO_DB_HOST}/${process.env.MONGO_DB_DATABASE}`, {useNewUrlParser: true})
