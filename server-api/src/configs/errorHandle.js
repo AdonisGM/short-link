@@ -128,7 +128,37 @@ const errorHandle = {
       detail: 'Password for short link is not correct, contact to creator to get it.',
       instance: req.originalUrl,
     }
-  }
+  },
+  'short-link-error-00004': (req) => {
+    return {
+      type: 'ShortLinkError',
+      status: 400,
+      errorCode: 'short-link-error-00004',
+      title: 'Maximum number of short links reached',
+      detail: 'Maximum number of short links reached. Upgrade your plan to create more short links.',
+      instance: req.originalUrl,
+    }
+  },
+  'short-link-error-00005': (req) => {
+    return {
+      type: 'ShortLinkError',
+      status: 400,
+      errorCode: 'short-link-error-00005',
+      title: 'Maximum number of short links has password reached',
+      detail: 'Maximum number of short links has password reached. Upgrade your plan to create more short links.',
+      instance: req.originalUrl,
+    }
+  },
+  'short-link-error-00006': (req) => {
+    return {
+      type: 'ShortLinkError',
+      status: 400,
+      errorCode: 'short-link-error-00006',
+      title: 'Maximum number of short links with custom link reached',
+      detail: 'Maximum number of short links with custom link reached. Upgrade your plan to create more short links.',
+      instance: req.originalUrl,
+    }
+  },
 }
 
 module.exports = errorHandle

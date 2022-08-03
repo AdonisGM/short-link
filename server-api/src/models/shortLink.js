@@ -20,6 +20,10 @@ const LinkSchema = new Schema({
     index: true,
     lowercase: true,
   },
+  isCustomShortLink: {
+    type: Boolean,
+    default: false,
+  },
   originalLink: {
     type: String,
     trim: true,

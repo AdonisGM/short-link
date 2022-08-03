@@ -18,11 +18,10 @@ app.use('/api/auth', require('./routers/user/authRouter'))
 app.use('/api/user', require('./routers/user/userRouter'))
 app.use('/api/link', require('./routers/user/linkRouter'))
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   mongoose.connect(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@${process.env.MONGO_DB_HOST}/${process.env.MONGO_DB_DATABASE}`, {useNewUrlParser: true})
     .then(() => {
-        console.log('-= Connected to MongoDB =-')
-        console.log(`-= server started =-`)
+        console.log(`-= server started =-` + `\n` + `-= listening on port ${process.env.PORT} =-`)
       },
     )
     .catch(err => console.log(err))

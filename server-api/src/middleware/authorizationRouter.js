@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken')
 const errorHandle = require('../configs/errorHandle')
+const User = require('../models/user')
 
-const AuthorizationRouter = (req, res, next) => {
+const AuthorizationRouter = async (req, res, next) => {
   if (!req.headers.authorization) {
     const error = errorHandle['authorization-error-00001'](req)
     return res.status(error.status).json(error)
@@ -32,7 +33,14 @@ const AuthorizationRouter = (req, res, next) => {
     return res.status(error.status).json(error)
   }
 
-  req.user = payload
+  const user = await User.findById(payload.id)
+
+  if (!user) {
+    const error = errorHandle['authorization-error-00001'](req)
+    return res.status(error.status).json(error)
+  }
+
+  req.user = user
   next()
 }
 
