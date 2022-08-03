@@ -79,6 +79,56 @@ const errorHandle = {
       instance: req.originalUrl,
     }
   },
+  'mongoose-error-00004': (req) => {
+    return {
+      type: 'MongooseError',
+      status: 400,
+      errorCode: 'mongoose-error-00004',
+      title: 'Short url is already exists',
+      detail: 'Short url is already exists. Please provide a different value for short url.',
+      instance: req.originalUrl,
+    }
+  },
+  'mongoose-error-00005': (req) => {
+    return {
+      type: 'MongooseError',
+      status: 400,
+      errorCode: 'mongoose-error-00005',
+      title: 'Short url is not exists',
+      detail: 'Short url is not exists. Please provide a valid value for short url.',
+      instance: req.originalUrl,
+    }
+  },
+  'short-link-error-00001': (req) => {
+    return {
+      type: 'ShortLinkError',
+      status: 400,
+      errorCode: 'short-link-error-00001',
+      title: 'Short link not active',
+      detail: 'Short link not active. contact to creator to activate it.',
+      instance: req.originalUrl,
+    }
+  },
+  'short-link-error-00002': (req) => {
+    return {
+      type: 'ShortLinkError',
+      status: 400,
+      errorCode: 'short-link-error-00002',
+      title: 'Short link protected by password',
+      detail: 'Use password to access this short link.',
+      instance: req.originalUrl,
+    }
+  },
+  'short-link-error-00003': (req) => {
+    return {
+      type: 'ShortLinkError',
+      status: 400,
+      errorCode: 'short-link-error-00003',
+      title: 'Password for short link is not correct',
+      detail: 'Password for short link is not correct, contact to creator to get it.',
+      instance: req.originalUrl,
+    }
+  }
 }
 
 module.exports = errorHandle

@@ -4,6 +4,7 @@ const router = express.Router()
 const LinkController = require('../../controllers/user/linkController')
 const AuthorizationRouter = require('../../middleware/authorizationRouter')
 
+router.get('/:shortLink', LinkController.getDetail)
 router.post('/create', AuthorizationRouter, LinkController.create)
 
 module.exports = router
