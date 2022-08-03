@@ -1,4 +1,14 @@
 const errorHandle = {
+  'authorization-error-00001': (req) => {
+    return {
+      type: 'MiddlewareAuthorizationError',
+      status: 401,
+      errorCode: 'authorization-error-00001',
+      title: 'Authorization error',
+      detail: 'User is not authorized to access this resource. Please login to continue.',
+      instance: req.originalUrl,
+    }
+  },
   'jwt-error-00001': (req) => {
     return {
       type: 'JsonWebTokenError',
