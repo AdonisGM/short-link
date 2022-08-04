@@ -22,10 +22,10 @@ jobs:
           node-version: '16.x'
 
       - name: npm install, build, and test
-        working-directory: ./server-api
         run: |
           npm install
           npm run build --if-present
+          npm run test --if-present
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'short-link-adonisgm'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AE4E0D8C4ABF4FB2BB962455A1B397AC }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_41A1C2450FD44A50BB089F91329368EE }}
           package: .
