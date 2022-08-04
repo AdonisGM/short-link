@@ -11,6 +11,10 @@ app.use(bodyParser.urlencoded({extended: false}))
 // parse application/json
 app.use(bodyParser.json())
 
+app.get('/', (req, res) => {
+  res.send('Welcome to ShortLink API, v0.1')
+})
+
 // api for admin
 
 // api for user
