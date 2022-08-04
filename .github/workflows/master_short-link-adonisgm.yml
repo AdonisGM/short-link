@@ -8,6 +8,9 @@ on:
     branches:
       - master
   workflow_dispatch:
+  
+env:
+  AZURE_WEBAPP_PACKAGE_PATH: './server-api'
 
 jobs:
   build:
