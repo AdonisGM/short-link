@@ -1,5 +1,6 @@
 const errorHandle = require('../../configs/errorHandle')
 const ShortLink = require('../../models/shortLink')
+const User = require('../../models/user')
 const bcrypt = require('bcrypt')
 const {nanoid} = require('nanoid')
 const validator = require('validator')
@@ -132,6 +133,8 @@ const LinkController = {
       }
     }
 
+    const ownerLink = await User.findOne({_id: shortLink.userId})
+
     shortLink.clicks += 1
     await shortLink.save()
 
@@ -143,6 +146,10 @@ const LinkController = {
         shortLink: shortLink.shortLink,
         description: shortLink.description,
         clicks: shortLink.clicks,
+        owner: {
+          name: ownerLink.name,
+          email: ownerLink.email,
+        },
       },
     })
   },

@@ -1,0 +1,19 @@
+.main {
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+  justify-content: center;
+  height         : 100vh;
+  row-gap        : 20px;
+}
+
+.itemInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.itemInfoLogo {
+  margin-right: 20px;
+}
