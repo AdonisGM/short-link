@@ -7,7 +7,6 @@ import {
   Button,
   Spacer,
   Loading,
-  Grid,
 } from '@nextui-org/react';
 import logo from '../../images/AdonisGM.png';
 import { IoMdLock } from 'react-icons/io';
