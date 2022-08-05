@@ -1,0 +1,15 @@
+{
+  "short_name": "Short Link",
+  "name": "Short Link Project",
+  "icons": [
+    {
+      "src": "AdonisGM.ico",
+      "sizes": "200x200",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
