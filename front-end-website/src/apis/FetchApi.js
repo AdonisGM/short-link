@@ -1,5 +1,5 @@
-// const endpoint = 'http://localhost:3000';
-const endpoint = 'https://short-link-adonisgm.azurewebsites.net';
+const endpoint = 'http://localhost:3000';
+// const endpoint = 'https://short-link-adonisgm.azurewebsites.net';
 
 /**
  * Fetches data from the API and returns a promise.
@@ -15,8 +15,8 @@ const endpoint = 'https://short-link-adonisgm.azurewebsites.net';
     method: api.method,
     headers: {
       'Content-Type': api.contextType,
-      Authorization: localStorage.getItem('access_token')
-        ? 'Bearer ' + localStorage.getItem('access_token')
+      Authorization: localStorage.getItem('accessToken')
+        ? 'Bearer ' + localStorage.getItem('accessToken')
         : '',
     },
     body: api.contextType === "multipart/form-data" ? bodyObject : bodyObject ? JSON.stringify(bodyObject) : null,
@@ -45,13 +45,13 @@ const endpoint = 'https://short-link-adonisgm.azurewebsites.net';
   if (response.status === 401) {
     const dataRefresh = await refreshToken();
     if (dataRefresh) {
-      localStorage.setItem('access_token', dataRefresh.data.access_token);
+      localStorage.setItem('accessToken', dataRefresh.data.accessToken);
       let optionsR = {
         method: api.method,
         headers: {
           'Content-Type': api.contextType,
-          Authorization: localStorage.getItem('access_token')
-            ? 'Bearer ' + localStorage.getItem('access_token')
+          Authorization: localStorage.getItem('accessToken')
+            ? 'Bearer ' + localStorage.getItem('accessToken')
             : '',
         },
         body: bodyObject ? JSON.stringify(bodyObject) : null,
@@ -74,9 +74,9 @@ const endpoint = 'https://short-link-adonisgm.azurewebsites.net';
 };
 
 const refreshToken = async () => {
-  if (!localStorage.getItem('refresh_token')) {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+  if (!localStorage.getItem('refreshToken')) {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     window.location.href = '/';
     return null;
   }
@@ -86,7 +86,7 @@ const refreshToken = async () => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      refresh_token: localStorage.getItem('refresh_token'),
+      refreshToken: localStorage.getItem('refreshToken'),
     }),
     method: 'POST',
   };
@@ -97,8 +97,8 @@ const refreshToken = async () => {
   );
 
   if (!responseRefresh.ok) {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     window.location.href = '/';
     return null;
   }

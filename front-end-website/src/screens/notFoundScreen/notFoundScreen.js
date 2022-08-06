@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import NotFound from '../../components/notFound/notFound';
+import NotFound from '../../components/notFound/NotFound';
 
 const NotFoundScreen = ({ title }) => {
   useEffect(() => {

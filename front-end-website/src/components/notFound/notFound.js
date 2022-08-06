@@ -1,5 +1,5 @@
 import { Spacer, Text, Link as LinkNextUI } from '@nextui-org/react';
-import classes from './notFound.module.css';
+import classes from './NotFound.module.css';
 
 const NotFound = () => {
   return (
