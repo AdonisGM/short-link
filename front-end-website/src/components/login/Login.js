@@ -6,11 +6,61 @@ import {
   Spacer,
   Text,
   Link as LinkNextUI,
+  Loading,
 } from '@nextui-org/react';
+import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../images/AdonisGM.png';
 import classes from './Login.module.css';
+import background from '../../images/background-login.jpg';
+import FetchApi from '../../apis/FetchApi';
+import { UserApis } from '../../apis/ListApis';
 
 const Login = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidPassword, setIsValidPassword] = useState(true);
+
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const email = emailRef.current.value.trim();
+    const password = passwordRef.current.value.trim();
+
+    if (email === '') setIsValidEmail(false);
+    if (password === '') setIsValidPassword(false);
+
+    if (email === '' || password === '') {
+      return;
+    }
+
+    setIsLoading(true);
+    FetchApi(
+      UserApis.login,
+      {
+        email: email,
+        password: password,
+      },
+      undefined,
+      undefined
+    )
+      .then((res) => {
+        setIsLoading(false);
+        localStorage.setItem('accessToken', res.data.accessToken);
+        localStorage.setItem('refreshToken', res.data.refreshToken);
+        navigate('/');
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setIsValidEmail(false);
+        setIsValidPassword(false);
+      });
+  };
+
   return (
     <div className={classes.main}>
       <div className={classes.divLogin}>
@@ -35,19 +85,38 @@ const Login = () => {
                 <Text h2 size={22}>
                   Sign in
                 </Text>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <Spacer y={1} />
-                  <Input css={{ width: 230 }} placeholder="Email@domain.com" />
+                  <Input
+                    ref={emailRef}
+                    type="email"
+                    status={isValidEmail ? 'default' : 'error'}
+                    css={{ width: 230 }}
+                    placeholder="Email@domain.com"
+                    onChange={() => setIsValidEmail(true)}
+                  />
                   <Spacer y={0.6} />
-                  <Input.Password css={{ width: 230 }} placeholder="Password" />
-                  <Spacer y={0.8} />
+                  <Input.Password
+                    ref={passwordRef}
+                    status={isValidPassword ? 'default' : 'error'}
+                    css={{ width: 230 }}
+                    placeholder="Password"
+                    onChange={() => setIsValidPassword(true)}
+                  />
+                  <Spacer y={1.2} />
                   <div className={classes.button}>
                     <Button
                       css={{ width: 100, margin: '0 auto' }}
                       auto
+                      disabled={isLoading}
+                      type="submit"
                       size={'sm'}
                     >
-                      Sign in
+                      {isLoading ? (
+                        <Loading size="xs" color={'currentColor'} />
+                      ) : (
+                        'Sign in'
+                      )}
                     </Button>
                   </div>
                 </form>
@@ -69,7 +138,14 @@ const Login = () => {
           </Text>
         </div>
       </div>
-      <div className={classes.divBackground}></div>
+      <div
+        className={classes.divBackground}
+        style={{
+          backgroundImage: `url(${background})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
     </div>
   );
 };

@@ -5,3 +5,11 @@ export const LinkApis = {
     contextType: 'application/json',
   },
 }
+
+export const UserApis = {
+  login: {
+    url: '/api/auth/get-token',
+    method: 'POST',
+    contextType: 'application/json',
+  },
+}
