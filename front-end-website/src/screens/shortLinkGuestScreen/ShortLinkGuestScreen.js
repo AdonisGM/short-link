@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import ShortLinkGuest from '../../components/shortLinkGuest/shortLinkGuest';
+import ShortLinkGuest from '../../components/shortLinkGuest/ShortLinkGuest';
 
 const ShortLinkGuestScreen = ({ title }) => {
   useEffect(() => {

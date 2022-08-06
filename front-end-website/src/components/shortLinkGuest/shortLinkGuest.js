@@ -11,7 +11,7 @@ import {
 import logo from '../../images/AdonisGM.png';
 import { IoMdLock } from 'react-icons/io';
 import { useParams, useNavigate } from 'react-router-dom';
-import classes from './shortLinkGuest.module.css';
+import classes from './ShortLinkGuest.module.css';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import FetchApi from '../../apis/FetchApi';
 import { LinkApis } from '../../apis/ListApis';
