@@ -5,6 +5,7 @@ import HomeScreen from './screens/homeScreen/HomeScreen';
 import LoginScreen from './screens/loginScreen/LoginScreen';
 import NotFoundScreen from './screens/notFoundScreen/NotFoundScreen';
 import ShortLinkGuest from './screens/shortLinkGuestScreen/ShortLinkGuestScreen';
+import NavigationLayout from './components/layout/NavigationLayout';
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
         path="/u/:idShortLink"
         element={<ShortLinkGuest title={'Short Link'} />}
       />
-      <Route path="/" element={<RequireAuth><HomeScreen title={'Home | Short Link'} /></RequireAuth>} />
+      <Route path="/" element={<NavigationLayout/>}>
+        <Route index element={<RequireAuth><HomeScreen title={'Home | Short Link'} /></RequireAuth>} />
+      </Route>      
       <Route
         path="/login"
         element={<NoRequireAuth><LoginScreen title={'Login | Short Link'} /></NoRequireAuth>}

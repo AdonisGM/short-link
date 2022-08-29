@@ -1,4 +1,3 @@
-
 import { useLocation, Navigate } from "react-router-dom";
 
 function RequireAuth({ children }) {
