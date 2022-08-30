@@ -62,6 +62,7 @@ const UserController = {
         message: 'User created successfully',
       })
     } catch (e) {
+      console.log(e.message);
       const error = errorHandle['mongoose-error-00001'](req)
       return res.status(error.status).json(error)
     }

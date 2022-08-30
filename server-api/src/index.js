@@ -24,6 +24,9 @@ app.use('/api/auth', require('./routers/user/authRouter'));
 app.use('/api/user', require('./routers/user/userRouter'));
 app.use('/api/link', require('./routers/user/linkRouter'));
 
+// telegram bot
+require('./telegram/telegram');
+
 app.listen(process.env.PORT, () => {
   mongoose
     .connect(

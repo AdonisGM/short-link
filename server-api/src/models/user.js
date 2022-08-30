@@ -30,6 +30,10 @@ const userSchema = new Schema({
     enum: ['basic', 'vip', 'premium'],
     default: 'basic',
   },
+  telegramId: {
+    type: String,
+    trim: true,
+  },
   isActive: {
     type: Boolean,
     default: false,

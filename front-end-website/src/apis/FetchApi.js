@@ -1,5 +1,5 @@
-const endpoint = 'http://localhost:3000';
-// const endpoint = 'https://short-link-adonisgm.azurewebsites.net';
+// const endpoint = 'http://localhost:3000';
+const endpoint = 'https://short-link-adonisgm.azurewebsites.net';
 
 /**
  * Fetches data from the API and returns a promise.

@@ -50,7 +50,8 @@ const ShortLinkGuest = () => {
           setIsGetInformation(false);
           setHasPassword(true);
         } else {
-          navigate('/404');
+          alert(err.errorCode);
+          // navigate('/404');
         }
       });
   };
