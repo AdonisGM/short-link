@@ -7,8 +7,8 @@
     <img alt="GitHub package.json version (subfolder of monorepo)" src="https://img.shields.io/github/package-json/v/AdonisGM/short-link?color=green&filename=server-api%2Fpackage.json&label=version%20server">
 </div>
 
-[![Azure Static Web App](https://github.com/AdonisGM/short-link/actions/workflows/azure-static-web-apps-jolly-beach-084eeab00.yml/badge.svg)](https://github.com/AdonisGM/short-link/actions/workflows/azure-static-web-apps-jolly-beach-084eeab00.yml)
-[![Build and deploy](https://github.com/AdonisGM/short-link/actions/workflows/master_short-link-adonisgm.yml/badge.svg)](https://github.com/AdonisGM/short-link/actions/workflows/master_short-link-adonisgm.yml)
+[![Build and deploy server](https://github.com/AdonisGM/short-link/actions/workflows/master_short-link-adonisgm.yml/badge.svg?branch=release-back-end)](https://github.com/AdonisGM/short-link/actions/workflows/master_short-link-adonisgm.yml)
+[![Build and deploy front-end](https://github.com/AdonisGM/short-link/actions/workflows/azure-static-web-apps-jolly-beach-084eeab00.yml/badge.svg?branch=release-front-end)](https://github.com/AdonisGM/short-link/actions/workflows/azure-static-web-apps-jolly-beach-084eeab00.yml)
 
 Project is a simple short link project. It's a simple web application that allows you to create a short link and redirect to the original link.
 
