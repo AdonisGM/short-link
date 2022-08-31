@@ -6,7 +6,6 @@ const ShortLink = require('../models/shortLink');
 const bcrypt = require('bcrypt');
 const MessageTelegram = require('../configs/messageTelegram');
 const TypeUser = require('../configs/typeUser');
-const { table } = require('table');
 const { nanoid } = require('nanoid');
 
 // message to welcome new user
@@ -299,6 +298,7 @@ bot.onText(/\/list/, async (msg, match) => {
   );
 });
 
+// method for test
 bot.onText(/\/test/, (msg, match) => {
   const chatId = msg.chat.id;
   bot.sendMessage(chatId, MessageTelegram.Success('123123'));
