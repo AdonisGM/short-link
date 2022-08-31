@@ -6,6 +6,7 @@ const ShortLink = require('../models/shortLink');
 const bcrypt = require('bcrypt');
 const MessageTelegram = require('../configs/messageTelegram');
 const TypeUser = require('../configs/typeUser');
+const { table } = require('table');
 const { nanoid } = require('nanoid');
 
 // message to welcome new user
@@ -13,7 +14,7 @@ bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
   bot.sendMessage(
     chatId,
-    `Welcome to ShortLink Bot 🤖\nCopyright © ${new Date().getFullYear()} <a href="https://github.com/AdonisGM">AdonisGM</a>\n\nNote: Bot is circulated internally so to be able to register an account please contact admin.\n\n<code>/login @email @password</code> : for link account\n<code>/create @link @name</code> : for create new ShortLink\n\nAny questions? <a href="https://t.me/nmtung">Contact admin</a>`,
+    `Welcome to ShortLink Bot 🤖\nCopyright © ${new Date().getFullYear()} <a href="https://github.com/AdonisGM">AdonisGM</a>\n\nNote: Bot is circulated internally so to be able to register an account please contact admin.\n\n<code>/login @email @password</code> : for link account\n<code>/create @link @name</code> : for create new ShortLink\n<code>/list</code> : for show list ShortLink\n\nAny questions? <a href="https://t.me/nmtung">Contact admin</a>`,
     {
       parse_mode: 'HTML',
       disable_web_page_preview: true,
@@ -242,6 +243,60 @@ bot.onText(/\/create (.+) (.+)/, async (msg, match) => {
       }
     );
   }
+});
+
+// show list shortlink
+bot.onText(/\/list/, async (msg, match) => {
+  const chatId = msg.chat.id;
+
+  const c = await bot.sendMessage(
+    chatId,
+    MessageTelegram.Loading('Verifying user...')
+  );
+
+  const selectUser = await User.findOne({ telegramId: chatId });
+  if (!selectUser) {
+    await bot.editMessageText(
+      MessageTelegram.Warning(
+        'You must login first for link your account with telegram'
+      ),
+      {
+        chat_id: chatId,
+        message_id: c.message_id,
+      }
+    );
+    return;
+  }
+
+  if (!selectUser.isActive) {
+    await bot.editMessageText(
+      MessageTelegram.Warning(
+        'Your account is deactivate!\n\nContact admin for more information\nEmail: <code>'
+      ),
+      {
+        chat_id: chatId,
+        message_id: c.message_id,
+      }
+    );
+    return;
+  }
+
+  const listLinkOwner = await ShortLink.find({ userId: selectUser.id });
+  const resultTable = listLinkOwner.map((link) => {
+    return `&#9755;  ${link.createdAt.toLocaleString()} | ${link.name} | <a href="https://s.nmtung.dev/u/${link.shortLink}">${link.shortLink}</a> | ${link.clicks}`
+  })
+
+  bot.editMessageText(
+    MessageTelegram.Success(
+      `List shortlink\n\n${resultTable.join('\n')}`
+    ),
+    {
+      chat_id: chatId,
+      message_id: c.message_id,
+      parse_mode: 'HTML',
+      disable_web_page_preview: true,
+    }
+  );
 });
 
 bot.onText(/\/test/, (msg, match) => {
