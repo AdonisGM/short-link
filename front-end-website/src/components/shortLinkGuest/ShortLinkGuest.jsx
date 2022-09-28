@@ -49,9 +49,6 @@ const ShortLinkGuest = () => {
         } else if (err.errorCode === 'short-link-error-00002') {
           setIsGetInformation(false);
           setHasPassword(true);
-        } else {
-          alert(err.errorCode);
-          // navigate('/404');
         }
       });
   };

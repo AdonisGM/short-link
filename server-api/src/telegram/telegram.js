@@ -282,13 +282,15 @@ bot.onText(/\/list/, async (msg, match) => {
 
   const listLinkOwner = await ShortLink.find({ userId: selectUser.id });
   const resultTable = listLinkOwner.map((link) => {
-    return `&#9755;  ${link.createdAt.toLocaleString()} | ${link.name} | <a href="https://s.nmtung.dev/u/${link.shortLink}">${link.shortLink}</a> | ${link.clicks}`
-  })
+    return `&#9755;  ${link.createdAt.toLocaleString()} | ${
+      link.name
+    } | <a href="https://s.nmtung.dev/u/${link.shortLink}">${
+      link.shortLink
+    }</a> | ${link.clicks}`;
+  });
 
   bot.editMessageText(
-    MessageTelegram.Success(
-      `List shortlink\n\n${resultTable.join('\n')}`
-    ),
+    MessageTelegram.Success(`List shortlink\n\n${resultTable.join('\n')}`),
     {
       chat_id: chatId,
       message_id: c.message_id,
@@ -302,4 +304,45 @@ bot.onText(/\/list/, async (msg, match) => {
 bot.onText(/\/test/, (msg, match) => {
   const chatId = msg.chat.id;
   bot.sendMessage(chatId, MessageTelegram.Success('123123'));
+});
+
+// method for room
+bot.onText(/\/room (.+)/, (msg, match) => {
+  const list = [
+    {
+      id: '1',
+      name: 'Room 1',
+      link: 'https://meet.google.com/cmo-bdym-koq',
+    },
+    {
+      id: '2',
+      name: 'Room 2',
+      link: 'https://meet.google.com/eie-bpfz-bmo',
+    },
+    {
+      id: '3',
+      name: 'Room 3',
+      link: 'https://meet.google.com/gon-invg-omr',
+    },
+    {
+      id: 'fap',
+      name: 'Room 3',
+      link: 'https://meet.google.com/wqy-pnwj-jgi',
+    },
+  ];
+
+  const chatId = msg.chat.id;
+  const [, value] = match;
+
+  const result = list.find((item) => item.id === value.trim());
+  console.log(result);
+
+  const c = bot.sendMessage(
+    chatId,
+    MessageTelegram.Success(`This is URL room ${result.id}: ${result.link}`),
+    {
+      parse_mode: 'HTML',
+      disable_web_page_preview: true,
+    }
+  );
 });
