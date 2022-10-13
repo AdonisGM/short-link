@@ -23,6 +23,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', require('./routers/user/authRouter'));
 app.use('/api/user', require('./routers/user/userRouter'));
 app.use('/api/link', require('./routers/user/linkRouter'));
+app.use('/api/quizlet', require('./routers/quizlet/quizletRouter'));
 
 // telegram bot
 require('./telegram/telegram');
