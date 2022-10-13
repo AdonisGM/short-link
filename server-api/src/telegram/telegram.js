@@ -3,6 +3,7 @@ const token = process.env.TELEGRAM_BOT_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 const User = require('../models/user');
 const ShortLink = require('../models/shortLink');
+const QuizletLearn = require('../models/quizletLearn');
 const bcrypt = require('bcrypt');
 const MessageTelegram = require('../configs/messageTelegram');
 const TypeUser = require('../configs/typeUser');
@@ -345,4 +346,20 @@ bot.onText(/\/room (.+)/, (msg, match) => {
       disable_web_page_preview: true,
     }
   );
+});
+
+bot.onText(/\/quizlet/, async (msg, match) => {
+  const chatId = msg.chat.id;
+
+  const quizlet = await QuizletLearn.find({});
+  // get 20 lastest quizlet
+  const quizletLastest = quizlet.slice(quizlet.length - 30, quizlet.length);
+
+  const list = quizlet.map((item) => {
+    return `IP: ${item.ip} | ${item.createdAt.toLocaleString()}`;
+  });
+
+  const temp = 'Danh sách IP mới truy cập:\n' + list.join('\n');
+
+  bot.sendMessage(chatId, MessageTelegram.Success(temp));
 });
