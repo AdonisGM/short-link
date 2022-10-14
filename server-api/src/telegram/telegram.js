@@ -355,8 +355,19 @@ bot.onText(/\/quizlet/, async (msg, match) => {
   // get 20 lastest quizlet
   const quizletLastest = quizlet.slice(quizlet.length - 30, quizlet.length);
 
-  const list = quizlet.map((item) => {
-    return `IP: ${item.ip} | ${item.createdAt.toLocaleString()}`;
+  // add 7 hours to time
+  const quizletLastestWithTime = quizletLastest.map((item) => {
+    const time = new Date(item.createdAt);
+    return {
+      ip: item.ip.split(':')[0],
+      createdAt: time.toLocaleString(),
+    };
+  });
+
+  console.log(quizletLastestWithTime);
+
+  const list = quizletLastestWithTime.map((item) => {
+    return `IP: ${item.ip} | ${item.createdAt}`;
   });
 
   const temp = 'Danh sách IP mới truy cập:\n' + list.join('\n');

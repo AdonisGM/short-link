@@ -11,7 +11,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
-app.use(cors());
+// allow cors * for now
+app.use(cors(
+  {
+    origin: '*',
+  },
+));
 
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Welcome to ShortLink API, v0.1' });
