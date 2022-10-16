@@ -9,6 +9,9 @@ require('dotenv').config();
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// change max limit of request body
+app.use(bodyParser.json({ limit: '5mb' }));
+
 // parse application/json
 app.use(bodyParser.json());
 // allow cors * for now
