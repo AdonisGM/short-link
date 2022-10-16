@@ -1,6 +1,8 @@
 const QuizletLearn = require('../../models/quizletLearn');
 const QuizletKey = require('../../models/quizletKey');
 const { nanoid } = require('nanoid');
+const cheerio = require('cheerio');
+const request = require('request-promise');
 
 const QuizletController = {
   getIp: async (req, res, next) => {
@@ -44,6 +46,60 @@ const QuizletController = {
       message: 'Success',
       data: temp.data,
     });
+  },
+  crawlData: async (req, res, next) => {
+    const { url } = req.body;
+
+    request(
+      {
+        uri: url,
+        headers: {
+          'User-Agent': 'Request-Promise',
+        },
+      },
+      (error, response, html) => {
+        if (!error && response.statusCode == 200) {
+          const $ = cheerio.load(html);
+
+          const data = [];
+
+          const title = $('.SetPage-titleWrapper').first().text();
+
+          $('.SetPageTerms-term').each((i, el) => {
+            const term = $(el)
+              .find('.SetPageTerm-wordText')
+              .find('span')
+              .html()
+              .replace(/<br\s*\/?>/gm, '\n');
+            const definition = $(el)
+              .find('.SetPageTerm-definitionText')
+              .find('span')
+              .html()
+              .replace(/<br\s*\/?>/gm, '\n');
+
+            const isTermAnswer = term.length < definition.length;
+            const answer = isTermAnswer ? term : definition;
+            const question = isTermAnswer ? definition : term;
+
+            data.push({
+              question: question,
+              answer: answer.toUpperCase(),
+            });
+          });
+          
+
+          console.log(data.length);
+
+          return res.status(200).json({
+            message: 'Success',
+            data: {
+              course: data,
+              title,
+            },
+          });
+        }
+      }
+    );
   },
 };
 
